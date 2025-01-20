@@ -16,6 +16,8 @@ if ($dbConnection)
     while ($row = $result->fetch_assoc()) {
         echo "User: " . $row['username']; // Direct echo statement (Code Smell)
     }
-} else {
+} else 
+{
     echo "Database connection is not established.";
+    echo "Success";
 }

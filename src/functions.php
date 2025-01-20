@@ -17,6 +17,6 @@ function connectToDatabase()
         return null;
     }
 
-    echo "Connection successful"; // Direct echo statement inside a function
+    echo "Connection successfuly established"; // Direct echo statement inside a function
     return $connection;
 }
