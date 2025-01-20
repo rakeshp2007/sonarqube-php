@@ -5,6 +5,6 @@
   },
   "scripts": {
     "phpstan": "phpstan analyse",
-    "cs-fix": "php-cs-fixer fix --dry-run"
+    "cs-fix": "php-cs-fixer fix --dry-run --diff"
   }
 }
