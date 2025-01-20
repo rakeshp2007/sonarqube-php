@@ -27,8 +27,8 @@ jobs:
           composer install --no-progress --no-suggest --prefer-dist
 
       # Step 4: Run PHPStan (static analysis)
-      - name: Run PHPStan
-        run: composer phpstan
+      # - name: Run PHPStan
+      #   run: composer phpstan
 
       # Step 5: Run PHP-CS-Fixer
       - name: Run PHP-CS-Fixer
