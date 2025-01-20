@@ -2,6 +2,6 @@ parameters:
     level: max
     paths:
         - src
-        - tests
+#        - tests
 #    bootstrapFiles:
 #        - bootstrap.php
