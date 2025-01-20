@@ -1,7 +1,6 @@
 parameters:
-    level: max
-    paths:
-        - src
-#        - tests
-#    bootstrapFiles:
-#        - bootstrap.php
+  level: 5
+  paths:
+    - src
+  autoload_files:
+    - vendor/autoload.php
