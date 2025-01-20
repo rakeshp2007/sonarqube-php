@@ -1,46 +1,41 @@
-name: PHP Composer
+name: CI Pipeline
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches:
+      - main # You can adjust this to your default branch, e.g., 'master'
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  php-checks:
+    runs-on: ubuntu-latest # Using the latest Ubuntu image for the runner
 
     steps:
-    - uses: actions/checkout@v4
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      # Step 2: Set up PHP 7.4
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          composer install --no-progress --no-suggest --prefer-dist
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      # Step 4: Run PHPStan (static analysis)
+      - name: Run PHPStan
+        run: composer phpstan
 
-    - name: Run PHPStan
-      run: composer phpstan
+      # Step 5: Run PHP-CS-Fixer
+      - name: Run PHP-CS-Fixer
+        run: composer cs-fix
 
-    # Step 5: Run PHP-CS-Fixer
-    - name: Run PHP-CS-Fixer
-      run: composer cs-fix
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
+      # # Step 6: Run SonarQube analysis
+      # - name: Run SonarQube analysis
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Make sure to add SONAR_TOKEN as a secret in your GitHub repo settings
+      #   run: sonar-scanner
