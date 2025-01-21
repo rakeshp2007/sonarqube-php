@@ -17,4 +17,5 @@ if ($dbConnection) {
     }
 } else {
     echo "Database connection is not established.";
+    echo "Success";
 }
