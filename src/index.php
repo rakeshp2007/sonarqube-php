@@ -16,5 +16,5 @@ if ($dbConnection) {
         echo "User: " . $row['username']; // Direct echo statement (Code Smell)
     }
 } else {
-    echo "Database connection is not established..";
+    echo "Database connection is not established.";
 }
